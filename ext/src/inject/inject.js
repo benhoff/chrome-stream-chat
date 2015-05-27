@@ -24,8 +24,10 @@ function processLiveCodingLogElement($e){
 
 function processYouTubeLogElement($e){
 	try{
-		var sender = $e.find(".inline-author").text().trim();
-		var comment = $e.find(".inline-comment").text().trim();
+		var sender = $e.find(".author").text().trim();
+		var comment = $e.find(".comment-text").text().trim();
+		console.log(sender);
+		console.log(comment);
 		processLog(window.location.hostname, sender, comment);
 	}catch(e){
 		console.log(e);
