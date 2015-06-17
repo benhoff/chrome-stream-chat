@@ -1,0 +1,21 @@
+{
+  "name": "Chrome Stream Chat Server",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Creates a TCP server to communicate",
+  "default_locale": "en",
+  "app":{
+	  "background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": true
+	  }
+  },
+  "sockets": {
+	  "tcpserver": {
+		  "listen": ["http://127.1.1.0:54545"]
+	  }
+
+  }
+}

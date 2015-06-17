@@ -1,8 +1,8 @@
 {
-  "name": "Chrome Stream Chat",
+  "name": "Chrome Stream Chat Extension",
   "version": "1.0.1",
-  "manifest_version": 3,
-  "description": "A simple extension to combine chat from youtube, twitch, and livecoding.",
+  "manifest_version": 2,
+  "description": "An app to combine chat from youtube and livecoding.",
   "homepage_url": "http://www.milestonemade.com",
   "icons": {
     "16": "icons/icon16.png",
@@ -15,13 +15,15 @@
     "https://www.livecoding.tv/*",
     "http://localhost:54545/*"
   ],
-  "background": {
-        "scripts": [
-	        "js/jquery/jquery.min.js",
-            "src/inject/background.js"
-        ],
-        "persistent": true
-    },
+  "app":{
+	  "background": {
+		"scripts": [
+			"js/jquery/jquery.min.js",
+			"src/inject/background.js"
+		],
+		"persistent": true
+	  }
+  },
   "content_scripts": [
     {
       "matches": [
