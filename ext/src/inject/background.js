@@ -1,74 +1,26 @@
+// create TCP server
+chrome.sockets.tcpSever.create({}, function(info){
+	chrome.sockets.tcpSever.listen(info.socketId, '127.0.0.1', 54545, function(result) {
+		console.log(result);
+	});
+});
+
+// create a variable to hold onto the socket id number
+var socket_id;
+
+// connect socket to TCP server
+chrome.sockets.tcp.create({}, function(createInfo){
+	chrome.sockets.tcp.connect(creatInfo.socketId, '127.0.0.1', 54545,
+
+// on Message, send message through socket to TCP server
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-	    
 	    if( request.host && request.sender && request.message){
-			console.log("formatted [" + request.host + "] [" + request.sender + "] [" + request.message + "]");
-			$.ajax({
-			  type: "POST",
-			  url: "http://localhost:54545/",
-			  data: { "host" : request.host,
-				  "sender" : request.sender,
-				  "message" : request.message
-			  },
-			  dataType : 'html',
-	          success: function(data) {
-	            //called when successful
-	          	console.log("success: " + data);
-	          },
-  	          error:function( jqXHR, textStatus, errorThrown){
-	          	console.log("error: " + textStatus + ":" + errorThrown);
-	          }
-
-			});
-	    }
-	        
-	    
-        console.log("background.js got a message")
-        console.log(request);
-        console.log(sender);
-        sendResponse("bar2");
-    }
-);
-
-
-/*
-chrome.runtime.onMessage.addListener( function(request,sender,sendResponse){
-	alert("asdf");
-    if( request.host && request.sender && request.message){
-		console.log("formatted [" + request.host + "] [" + request.sender + "] [" + request.message + "]");
-		$.ajax({
-		  type: "POST",
-		  url: "http://localhost:54545/",
+		    // need to transform data to arrayBuffer
 		  data: { "host" : request.host,
 			  "sender" : request.sender,
 			  "message" : request.message
 		  },
-		  dataType : 'json',
-          success: function(data) {
-            //called when successful
-
-            alert(data[0].word);
-
-          }
-		});
-    }else{
-		$.ajax({
-		  type: "POST",
-		  url: "http://localhost:54545/",
-		  data: { "host" : "fail",
-			  "sender" : "fail",
-			  "message" : "fail"
-		  },
-		  dataType : 'json',
-          success: function(data) {
-            //called when successful
-
-            alert(data[0].word);
-
-          }
-		});
-    }
-    
-    sendResponse({"ok":"yep"});
-}
-*/
+		  // send data call here
+		    	chrome.sockets.tcp.send(socket_id, arrayBuffer, onSentCallback)
+);
